@@ -1,0 +1,70 @@
+ 
+ /*-- IMPORT GOOGLE WEB FONTS --*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Lato:400,300,700);
+
+ /*-- BOOTSTRAP --*/
+@import url('bootstrap.min.css');
+
+ /*-- FONT AWESOME --*/
+@import url('font-awesome.min.css');
+
+ /*-- FLATICONS --*/
+@import url('../fonts/flaticon/flaticon.css');
+
+ /*-- SLIDER PRO --*/
+@import url('../assets/slider-pro/css/slider-pro.min.css');
+
+ /*-- ANIMATE CSS --*/
+@import url('animate.css');
+
+ /*-- OWL CAROUSEL --*/
+
+@import url('../assets1/assets/owl-carousel/owl.carousel.css');
+
+@import url('../assets1/assets/owl-carousel/owl.theme.css');
+
+ /*-- MAIN STYLES --*/
+@import url('theme.min.css');
+
+ /*-- RESPONSIVE FIXES --*/
+@import url('responsive.css');
+
+/*-- PROFILE CLIEN -- */
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: 1rem;
+}
+.text-reset {
+    --bs-text-opacity: 1;
+    color: inherit!important;
+}
+a {
+    color: #0da1f7;
+    text-decoration: none;
+}
+
+.myaccount{
+    background:rgb(243, 240, 240);
+}
+
+#nuevoEnc{
+    width: 53rem;
+}
+
+#datosCuenta{
+    width: 53rem;
+}
+
+#encargosTabla{
+    height: 77rem;
+}
