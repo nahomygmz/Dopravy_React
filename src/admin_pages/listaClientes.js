@@ -1,8 +1,108 @@
 import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
+import {variables} from '../variables';
+import axios from 'axios';
 
-function ListadoClientes(){
-    return(
-        <div>
+
+export class ListaClientes extends Component{
+
+    constructor(props){
+        super(props);
+
+        this.state={
+            clientes:[],
+            cliCedula:"",
+            cliNombre:"",
+            cliApellido:"",
+            cliFechnac:"",
+            cliSexo:"",
+            cliStatus:"",
+            cliPw:"",
+            encargos:[],
+            modalTitle:""
+        }
+    }
+
+    //Buscar y mostrar los usuarios existentes
+    refreshList(){
+        fetch(variables.API_URL +'Cliente')
+         .then(response=>response.json())
+         .then(data =>{
+             this.setState({clientes:data});
+         });
+    }
+    //renderizar lista
+    componentDidMount(){
+         this.refreshList();
+    }
+
+    //formulario para editar datos
+    editClick(cli){
+        this.setState({
+            modalTitle:"Actualizar Datos",
+            cliCedula:cli.cliCedula,
+            cliNombre:cli.cliNombre,
+            cliApellido:cli.cliApellido,
+            cliFechnac:cli.cliFechnac,
+            cliSexo:cli.cliSexo,
+            cliStatus:cli.cliStatus,
+            cliPw:cli.cliPw,
+        })
+    }
+    //actualizar datos
+    updateClick(id){
+        fetch(variables.API_URL+'Cliente/'+id,{
+            method:'PUT',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                cliCedula:this.state.cliCedula,
+                cliNombre:this.state.cliNombre,
+                cliApellido:this.state.cliApellido,
+                cliFechnac:this.state.cliFechnac,
+                cliSexo:this.state.cliSexo,
+                cliStatus:this.state.cliStatus,
+                cliPw:this.state.cliPw
+            })
+        })
+        .then(res=>res.json())
+        .then((result)=>{
+            alert('Error.');
+            
+        }, (error)=>{
+            this.refreshList();
+            alert('Registro actualizado.');
+        })
+    }
+
+    //asociar los campos de los formularios con los de la API
+    ChangeHandler = (e) => {
+    this.setState({[e.target.name]: e.target.value})
+    }
+
+
+
+
+
+    render(){
+
+        const{
+            clientes,
+            cliCedula,
+            cliNombre,
+            cliApellido,
+            cliFechnac,
+            cliSexo,
+            cliStatus,
+            cliPw,
+            modalTitle
+            
+        }=this.state
+
+        return(
+            <div>
            
             <link rel="icon" href="./assets1/images/icon.ico" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,14 +242,41 @@ function ListadoClientes(){
                                             <th>Nombre Completo</th>
                                             <th>Fecha de Nacimiento</th>
                                             <th>Sexo</th>
+                                            <th>Clave de Usuario</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
                                         <tbody className="table-border-bottom-0">
-                                        <tr>
-                                        <td></td>
-                                        </tr>
-                                        
+                                            {clientes.map(cli =>
+                                                <tr key={cli.id}>
+                                                    <td>{cli.cliCedula}</td>
+                                                    <td>{cli.cliNombre} {cli.cliApellido}</td>
+                                                    <td>{cli.cliFechnac}</td>
+                                                    <td>{cli.cliSexo}</td>
+                                                    <td>{cli.cliPw}</td>
+                                                    <td><span className="badge bg-label-success me-1">{cli.cliStatus}</span></td>
+
+                                                    <td>
+                                                        <div className="dropdown">
+                                                            <button type="button" className="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                                <i className="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+
+                                                            <div className="dropdown-menu">
+                                                                <a className="dropdown-item" href="javascript:void(0);"
+                                                                 data-bs-toggle="modal" 
+                                                                 data-bs-target="#exampleModal"
+                                                                 onClick={()=>this.editClick(cli)}>
+                                                                <i className="bx bx-edit-alt me-2"
+                                                                data-toggle="modal" data-target="#exampleModal">
+                                                                </i> Actualizar
+                                                                </a>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                )}
                                         </tbody>
                                     </table>
                                     </div>
@@ -158,10 +285,8 @@ function ListadoClientes(){
                                 <footer className="content-footer footer bg-footer-theme">
                                     <div className="mb-2 mb-md-0">
                                         <br/>
-                                        DOPRAVY | ©
-                                        <script>
-                                        document.write(new Date().getFullYear());
-                                        </script>
+                                        DOPRAVY | © 2022
+                                        
                                     </div>
                                 </footer>
                 
@@ -173,8 +298,71 @@ function ListadoClientes(){
                 <div className="layout-overlay layout-menu-toggle"></div>
             </div> 
            
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">{modalTitle}</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
 
+                        <div className="modal-body">
+                            
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Cédula</span>
+                                <input disabled className="form-control" maxLength="11" name="cliCedula" value={cliCedula} onChange={this.ChangeHandler}/>
+                            </div>
 
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Nombre</span>
+                                <input type="text" className="form-control" name="cliNombre" value={cliNombre} onChange={this.ChangeHandler}/>
+                            </div>
+                                                    
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Apellido</span>
+                                <input type="text" className="form-control" name="cliApellido" value={cliApellido} onChange={this.ChangeHandler}/>
+                            </div>
+
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Fecha de Nacimiento</span>
+                                <input type="text" className="form-control" name="cliFechnac" value={cliFechnac} onChange={this.ChangeHandler}/>
+                            </div>
+
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Sexo</span>
+                                <select className="form-control" name="cliSexo" value={cliSexo} onChange={this.ChangeHandler}>
+                                    <option>Femenino</option>
+                                    <option>Masculino</option>
+                                </select>
+                            </div>
+
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Clave de Usuario</span>
+                                <input type="text" className="form-control" name="cliPw" value={cliPw} onChange={this.ChangeHandler}/>
+                            </div>
+
+                            <div className="input-group mb-3">
+                                <span className="btn btn-outline-secondary">Status</span>
+                                <select className="form-control" name="cliStatus" value={cliStatus} onChange={this.ChangeHandler}>
+                                    <option> </option>
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                            </div>
+                            <div>  
+
+                            {cliCedula!==0?
+                            <button type="button" 
+                            className="btn btn-primary float-start"
+                            onClick={()=>this.updateClick(cliCedula)}>Guardar cambios</button>
+                            :null}
+                            </div>
+                                               
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
 
             <script src="./assets2/assets/vendor/libs/jquery/jquery.js"></script>
@@ -193,7 +381,9 @@ function ListadoClientes(){
             <script async defer src="https://buttons.github.io/buttons.js"></script>
 
         </div>
-    )
-}
+            
+        )
+    }
 
-export default ListadoClientes;
+
+}

@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 
 function IndexAdmin(){
     return(
@@ -52,7 +52,7 @@ function IndexAdmin(){
                             <li className="menu-item">
                                 <div className="menu-link">
                                     <i className="menu-icon tf-icons bx bx-collection"></i>
-                                    <Link to="/listadoclientes">Lista de clientes</Link>
+                                    <NavLink to="/listadoclientes">Lista de clientes</NavLink>
                                 </div>
                             </li>
                             <li className="menu-item">
@@ -132,7 +132,7 @@ function IndexAdmin(){
                                                         Nos alegramos de que estés de vuelta. Es hora de que vuelvas a poner algo de entusiasmo en nuestro equipo.
                                                     </p>
 
-                                                    <a href="Lista-encargos.html" className="btn btn-sm btn-outline-primary">Encargos</a>
+                                                    <a href="/listadoencargos" className="btn btn-sm btn-outline-primary">Encargos</a>
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-5 text-center text-sm-left">
