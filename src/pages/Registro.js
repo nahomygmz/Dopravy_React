@@ -4,7 +4,7 @@ import {variables} from '../variables';
 import axios from 'axios';
 
 
-
+ 
 export class Registro extends Component{
 
     constructor(props){
@@ -22,18 +22,7 @@ export class Registro extends Component{
         }
     }
 
-    //Buscar y mostrar los conductores existentes
-    refreshList(){
-        fetch(variables.API_URL +'Cliente')
-         .then(response=>response.json())
-         .then(data =>{
-             this.setState({conductores:data});
-         });
-     }
-    //Renderizar la lista
-    componentDidMount(){
-         this.refreshList();
-    }
+    
 
 
 
@@ -52,6 +41,7 @@ export class Registro extends Component{
             if(error.response){
                 alert('Este usuario ya existe.');
             }else{
+                window.location.assign('/loginClient');
                 alert('Usuario registrado.');
             }
         })

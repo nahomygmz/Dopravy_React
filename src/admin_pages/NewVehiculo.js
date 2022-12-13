@@ -24,34 +24,6 @@ export class AddVehiculo extends Component{
         }
     }
 
-    createClick(){
-        fetch(variables.API_URL+'Conductor',{
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                camUnidad:this.state.camUnidad,
-                camMarca:this.state.camMarca,
-                camModelo:this.state.camModelo,
-                camColor:this.state.camColor,
-                camPlaca:this.state.camPlaca,
-                camChasis:this.state.camChasis,
-                camTiposeguroid:this.state.camTiposeguroid,
-                camStatus:this.state.camStatus,
-                encargos:this.state.encargos,
-            })
-        })
-        .then(res=>res.json())
-        .then((result)=>{
-            alert('Vehículo registrado.');
-            this.refreshList();
-        }, (error)=>{
-            alert('Este empleado ya existe');
-        })
-    }
-
    //asociar los campos de los formularios con los de la API
    ChangeHandler = (e) => {
     this.setState({[e.target.name]: e.target.value})
@@ -153,18 +125,18 @@ export class AddVehiculo extends Component{
                                     </div>
                                 </li>
     
-                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Empleados</span></li>
+                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Conductores</span></li>
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/agregarempleado'>Registrar nuevo empleado</Link>
+                                        <Link to='/agregarempleado'>Registrar nuevo conductor</Link>
                                     </div>
                                 </li>
     
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/listadoempleados'>Lista de empleados</Link>
+                                        <Link to='/listadoempleados'>Lista de conductores</Link>
                                     </div>
                                 </li>
     
@@ -334,7 +306,7 @@ export class AddVehiculo extends Component{
         
                                                 <div className="row justify-content-end">
                                                 <div className="col-sm-10">
-                                                    <button type="submit" className="btn btn-primary" onClick={()=>this.createClick()}>Registrar</button>
+                                                    <button type="submit" className="btn btn-primary" onClick={this.submitHandler}>Registrar</button>
                                                 </div>
                                                 </div>
                                             </form>

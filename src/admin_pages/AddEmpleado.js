@@ -39,38 +39,12 @@ export class AddEmpleados extends Component{
     }
 
     
-    createClick(){
-        fetch(variables.API_URL+'Conductor',{
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                conCedula:this.state.conCedula,
-                conNombre:this.state.conNombre,
-                conApellido:this.state.conApellido,
-                cliFechnac:this.state.cliFechnac,
-                conNacionalidad:this.state.conNacionalidad,
-                conDireccion:this.state.conDireccion,
-                conNiveledu:this.state.conNiveledu,
-                conSexo:this.state.conSexo,
-                conStatus:this.state.conStatus,
-                encargos:this.state.encargos,
-            })
-        })
-        .then(res=>res.json())
-        .then((result)=>{
-            alert('Empleado registrado.');
-            this.refreshList();
-        }, (error)=>{
-            alert('Este empleado ya existe');
-        })
-    }
     //asociar los campos de los formularios con los de la API
     ChangeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value})
     }
+
+
     //POST
     submitHandler = e =>{
         e.preventDefault()
@@ -79,9 +53,9 @@ export class AddEmpleados extends Component{
         .then(res=>res.json())
         .catch(function (error){
             if(error.response){
-                alert('Este empleado ya existe.');
+                alert('Este conductor ya existe.');
             }else{
-                alert('Empleado registrado.');
+                alert('Conductor registrado.');
             }
         })
     }
@@ -90,7 +64,6 @@ export class AddEmpleados extends Component{
 
         const{ 
             conductores,
-            encargos,
             conCedula,
             conNombre,
             conApellido,
@@ -105,28 +78,28 @@ export class AddEmpleados extends Component{
         return(
 
             <div>
-            
-                <link rel="icon" href="./assets1/images/icon.ico" />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-                <link
-                href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-                rel="stylesheet"
-                />
 
-                <link rel="stylesheet" href="./assets2/assets/vendor/fonts/boxicons.css" />
+                <head>
+                    <link rel="icon" href="./assets1/images/icon.ico" />
+                    <link rel="preconnect" href="https://fonts.googleapis.com" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                    <link
+                    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+                    rel="stylesheet"
+                    />
 
-                <link rel="stylesheet" href="./assets2/assets/vendor/css/core.css" className="template-customizer-core-css" />
-                <link rel="stylesheet" href="./assets2/assets/vendor/css/theme-default.css" className="template-customizer-theme-css" />
-                <link rel="stylesheet" href="./assets2/assets/css/demo.css" />
-                <link rel="stylesheet" href="./assets2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+                    <link rel="stylesheet" href="./assets2/assets/vendor/fonts/boxicons.css" />
 
-                <link rel="stylesheet" href="./assets2/assets/vendor/libs/apex-charts/apex-charts.css" />
-                <script src="./assets2/assets/vendor/js/helpers.js"></script>
-                <script src="./assets2/assets/js/config.js"></script>
+                    <link rel="stylesheet" href="./assets2/assets/vendor/css/core.css" className="template-customizer-core-css" />
+                    <link rel="stylesheet" href="./assets2/assets/vendor/css/theme-default.css" className="template-customizer-theme-css" />
+                    <link rel="stylesheet" href="./assets2/assets/css/demo.css" />
+                    <link rel="stylesheet" href="./assets2/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-
-
+                    <link rel="stylesheet" href="./assets2/assets/vendor/libs/apex-charts/apex-charts.css" />
+                    <script src="./assets2/assets/vendor/js/helpers.js"></script>
+                    <script src="./assets2/assets/js/config.js"></script>
+                </head>
+                
 
                 <div className="layout-wrapper layout-content-navbar">
                     <div className="layout-container">
@@ -167,18 +140,18 @@ export class AddEmpleados extends Component{
                                     </div>
                                 </li>
 
-                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Empleados</span></li>
+                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Conductores</span></li>
                                 <li className="menu-item active">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/agregarempleado'>Registrar nuevo empleado</Link>
+                                        <Link to='/agregarempleado'>Registrar nuevo conductor</Link>
                                     </div>
                                 </li>
 
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/listadoempleados'>Lista de empleados</Link>
+                                        <Link to='/listadoempleados'>Lista de conductores</Link>
                                     </div>
                                 </li>
 
@@ -226,7 +199,7 @@ export class AddEmpleados extends Component{
                     
                             <div className="content-wrapper">
                                 <div className="container-xxl flex-grow-1 container-p-y">
-                                    <h4 className="fw-bold py-3 mb-4">Registrar Empleado</h4>
+                                    <h4 className="fw-bold py-3 mb-4">Registrar Conductor</h4>
 
                                     <div className="row">
                                         <div className="col-xxl">
@@ -234,6 +207,8 @@ export class AddEmpleados extends Component{
                                                 <div className="card-header d-flex align-items-center justify-content-between">
                                                     <h5 className="mb-0">Datos Personales</h5>
                                                 </div>
+
+
                                                 <form onSubmit={this.submitHandler}>
                                                     <div className="card-body">
                                                         <div className="row mb-3">
@@ -358,11 +333,14 @@ export class AddEmpleados extends Component{
                                                         
                                                         <div className="row justify-content-end">
                                                             <div className="col-sm-10">
-                                                            <button type="submit"  className="btn btn-primary" onClick={()=>this.createClick()}>Registrar</button>
+                                                            <button type="submit"  className="btn btn-primary" onClick={this.submitHandler}>Registrar</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
+
+
+
                                             </div>
                                         </div>
                                     </div>

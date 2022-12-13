@@ -4,9 +4,9 @@ import IndexCli from './pages/IndexCli';
 import Servicios from './pages/Servicios';
 import About from './pages/About';
 import Contactos from './pages/Contactos';
-import LoginClient from './pages/LoginClient';
+import {LoginClient} from './pages/LoginClient';
 import {Registro} from './pages/Registro';
-import Cuenta from './pages/Cuenta';
+import {Cuenta} from './pages/Cuenta';
 
 import IndexIn from './pages/IndexIn';
 import ServiciosIn from './pages/ServiciosIn';

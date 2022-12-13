@@ -9,7 +9,7 @@ export class ListaEncargos extends Component{
         this.state={
             encargos:[],
             encId:0,
-            encTipoencid:0,
+            encTipoenc:0,
             encDesc:"",
             encProvinciaid:0,
             encSector:"",
@@ -20,6 +20,12 @@ export class ListaEncargos extends Component{
             encStatus:"",
         }
     }
+
+    state={
+        conductores:[],
+        camiones:[]
+    }
+
 
     //Buscar los encargos existentes
     refreshList(){
@@ -35,13 +41,15 @@ export class ListaEncargos extends Component{
     componentDidMount(){
         this.refreshList();
     }
+
+    
     
     //formulario para editar datos
     editClick(enc){
         this.setState({
             modalTitle:"Actualizar Datos",
             encId:enc.encId,
-            encTipoencid:enc.encTipoencid,
+            encTipoenc:enc.encTipoenc,
             encDesc:enc.encDesc,
             encProvinciaid:enc.encProvinciaid,
             encSector:enc.encSector,
@@ -63,7 +71,7 @@ export class ListaEncargos extends Component{
             },
             body: JSON.stringify({
                 encId:this.state.encId,
-                encTipoencid:this.state.encTipoencid,
+                encTipoenc:this.state.encTipoenc,
                 encDesc:this.state.encDesc,
                 encProvinciaid:this.state.encProvinciaid,
                 encSector:this.state.encSector,
@@ -76,12 +84,14 @@ export class ListaEncargos extends Component{
             })
         })
         .then(res=>res.json())
-        .then((result)=>{
-            alert('Error.');
-            
-        }, (error)=>{
-            this.refreshList();
-            alert('Registro actualizado.');
+        .catch(function (error){
+            if(error.response){
+                alert('Error en actualizar.');
+            }else{
+                alert('Encargo actualizado.');
+                window.location.reload();
+                
+            }
         })
     }
 
@@ -97,7 +107,7 @@ export class ListaEncargos extends Component{
             modalTitle,
             encargos,
             encId,
-            encTipoencid,
+            encTipoenc,
             encDesc,
             encProvinciaid,
             encSector,
@@ -105,7 +115,8 @@ export class ListaEncargos extends Component{
             encConductorcedula,
             encClicedula,
             encUnidad,
-            encStatus            
+            encStatus
+                        
             
         }=this.state
 
@@ -172,18 +183,18 @@ export class ListaEncargos extends Component{
                                     </div>
                                 </li>
     
-                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Empleados</span></li>
+                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Conductores</span></li>
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/agregarempleado'>Registrar nuevo empleado</Link>
+                                        <Link to='/agregarempleado'>Registrar nuevo conductor</Link>
                                     </div>
                                 </li>
     
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/listadoempleados'>Lista de empleados</Link>
+                                        <Link to='/listadoempleados'>Lista de conductores</Link>
                                     </div>
                                 </li>
     
@@ -242,13 +253,11 @@ export class ListaEncargos extends Component{
                                             <th>ID de Encargo</th>
                                             <th>Tipo de Encargo</th>
                                             <th>Cédula de Cliente</th>
-                                            <th>Nombre Cliente</th>
                                             <th>Descripción</th>
                                             <th>Sector</th>
                                             <th>Provincia</th>
                                             <th>Lugar descarga</th>
                                             <th>Cedula Conductor</th>
-                                            <th>Conductor</th>
                                             <th>Camión</th>
                                             <th>Status</th>
                                             </tr>
@@ -257,16 +266,13 @@ export class ListaEncargos extends Component{
                                             {encargos.map(enc =>
                                             <tr key={enc.id}>
                                                 <td>{enc.encId}</td>
-                                                <td>{enc.teDesc}</td>
-
+                                                <td>{enc.encTipoenc}</td>
                                                 <td>{enc.encClicedula}</td>
-                                                <td>{enc.cliNombre} {enc.cliApellido}</td>
                                                 <td>{enc.encDesc}</td>
                                                 <td>{enc.encSector}</td>
                                                 <td>{enc.encProvinciaid}</td>
                                                 <td>{enc.encLugardescarga}</td>
                                                 <td>{enc.encConductorcedula}</td>
-                                                <td>{enc.teDesc}</td>
                                                 <td>{enc.encUnidad}</td>
                                                 <td><span className="badge bg-label-success me-1">{enc.encStatus}</span></td>
                                                 <td>
@@ -329,7 +335,12 @@ export class ListaEncargos extends Component{
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Tipo de encargo</span>
-                                <input type="text" className="form-control" name="encTipoencid" value={encTipoencid} onChange={this.ChangeHandler}/>
+                                <select className="form-control" name="encTipoenc" value={encTipoenc} onChange={this.ChangeHandler}>
+                                    <option>-Seleccione una opción-</option>
+                                    <option>Mudanza</option>
+                                    <option>Transporte de alimentos</option>
+                                    <option>Transporte de mercancia</option>
+                                </select>
                             </div>
                                          
                             <div className="input-group mb-3">
@@ -339,7 +350,19 @@ export class ListaEncargos extends Component{
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Provincia</span>
-                                <input type="text" className="form-control" name="encProvinciaid" value={encProvinciaid} onChange={this.ChangeHandler}/>
+                                <select className="form-control" name="encProvinciaid" value={encProvinciaid} onChange={this.ChangeHandler}>
+                                    <option>-Seleccione una opción-</option>
+                                    <option>Distrito Nacional</option>
+                                    <option>Santo Domingo Norte</option>
+                                    <option>Santo Domingo Oeste</option>
+                                    <option>Santo Domingo Este</option>
+                                    <option>Santiago</option>
+                                    <option>Santiago Rodríguez</option>
+                                    <option>La Romana</option>
+                                    <option>La Vega</option>
+                                    <option>Puerto Plata</option>
+                                    <option>Peravia</option>
+                                </select>
                             </div>
 
                             <div className="input-group mb-3">
@@ -364,7 +387,10 @@ export class ListaEncargos extends Component{
                             
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Camión</span>
-                                <input type="text" className="form-control" name="encUnidad" value={encUnidad} onChange={this.ChangeHandler}/>
+                                <select className="form-control" name="encUnidad" value={encUnidad} onChange={this.ChangeHandler}>
+                                    {encargos.map(enc =>
+                                        <option key={enc.desc}></option>)}
+                                </select>
                             </div>
 
                             <div className="input-group mb-3">
@@ -374,6 +400,7 @@ export class ListaEncargos extends Component{
                                     <option>Entregado</option>
                                     <option>En curso</option>
                                     <option>Cancelado</option>
+                                    <option>Pendiente</option>
                                 </select>
                             </div>
                             <div>  

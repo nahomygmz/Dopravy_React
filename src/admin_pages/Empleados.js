@@ -171,18 +171,18 @@ export class ListaEmpleados extends Component{
                                     </div>
                                 </li>
     
-                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Empleados</span></li>
+                                <li className="menu-header small text-uppercase"><span className="menu-header-text">Conductores</span></li>
                                 <li className="menu-item">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/agregarempleado'>Registrar nuevo empleado</Link>
+                                        <Link to='/agregarempleado'>Registrar nuevo conductor</Link>
                                     </div>
                                 </li>
     
                                 <li className="menu-item active">
                                     <div className="menu-link">
                                         <i className="menu-icon tf-icons bx bx-collection"></i>
-                                        <Link to='/listadoempleados'>Lista de empleados</Link>
+                                        <Link to='/listadoempleados'>Lista de conductores</Link>
                                     </div>
                                 </li>
     
@@ -230,10 +230,10 @@ export class ListaEmpleados extends Component{
                        
                             <div className="content-wrapper">
                                 <div className="container-xxl flex-grow-1 container-p-y">
-                                    <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light"></span> Lista de empleados</h4>
+                                    <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light"></span> Lista de Conductores</h4>
     
                                     <div className="card">
-                                    <h5 className="card-header">Empleados</h5>
+                                    <h5 className="card-header">Conductores</h5>
                                     <div className="table-responsive text-nowrap">
                                         <table className="table">
                                         <thead>

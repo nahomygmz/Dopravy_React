@@ -169,18 +169,18 @@ export class ListaClientes extends Component{
                                 </div>
                             </li>
 
-                            <li className="menu-header small text-uppercase"><span className="menu-header-text">Empleados</span></li>
+                            <li className="menu-header small text-uppercase"><span className="menu-header-text">Conductores</span></li>
                             <li className="menu-item">
                                 <div className="menu-link">
                                     <i className="menu-icon tf-icons bx bx-collection"></i>
-                                    <Link to='/agregarempleado'>Registrar nuevo empleado</Link>
+                                    <Link to='/agregarempleado'>Registrar nuevo conductor</Link>
                                 </div>
                             </li>
 
                             <li className="menu-item">
                                 <div className="menu-link">
                                     <i className="menu-icon tf-icons bx bx-collection"></i>
-                                    <Link to='/listadoempleados'>Lista de empleados</Link>
+                                    <Link to='/listadoempleados'>Lista de conductores</Link>
                                 </div>
                             </li>
 
