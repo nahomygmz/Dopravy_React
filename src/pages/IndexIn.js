@@ -89,7 +89,7 @@ function IndexCli(){
                                 Servicios de calidad de transporte
                             </h2>
                 
-                            <a className="sp-layer main-button" href="contactos"
+                            <a className="sp-layer main-button" href="/contactosIn"
                                 data-position="rightCenter" data-horizontal="15" data-vertical="55"
                                 data-show-transition="left" data-hide-transition="left" data-show-delay="600" data-hide-delay="600">
                                 <div className="my-btn my-btn-primary">
@@ -150,7 +150,7 @@ function IndexCli(){
                                 las mejores manos
                             </h2>
                 
-                            <a className="sp-layer main-button" href="contactos"
+                            <a className="sp-layer main-button" href="/contactosIn"
                                 data-position="rightCenter" data-horizontal="15" data-vertical="55"
                                 data-show-transition="down" data-hide-transition="down" data-show-delay="200" data-hide-delay="200">
                                 <div className="my-btn my-btn-primary">
@@ -210,7 +210,7 @@ function IndexCli(){
                                 el mejor respaldo
                             </h2>
                 
-                            <a className="sp-layer main-button" href="contactos"
+                            <a className="sp-layer main-button" href="/contactosIn"
                                 data-position="rightCenter" data-horizontal="15" data-vertical="55"
                                 data-show-transition="up" data-hide-transition="up" data-show-delay="600" data-hide-delay="600">
                                 <div className="my-btn my-btn-primary">
@@ -274,7 +274,7 @@ function IndexCli(){
                             </div>
 
                             <div className="service-button">
-                                <a href="servicios">
+                                <a href="serviciosIn">
                                     <div className="my-btn my-btn-default">
                                         <div className="my-btn-bg-top"></div>
                                         <div className="my-btn-bg-bottom"></div>
@@ -299,7 +299,7 @@ function IndexCli(){
                                 <p>El transporte por carretera<br/>ofrece una opción más rápida,<br/>mucho más flexible y<br/>sin complicaciones.</p>
                             </div>
                             <div className="service-button">
-                                <a href="servicios">
+                                <a href="serviciosIn">
                                     <div className="my-btn my-btn-default">
                                         <div className="my-btn-bg-top"></div>
                                         <div className="my-btn-bg-bottom"></div>
@@ -362,7 +362,7 @@ function IndexCli(){
 								<source src="./assets1/media/video/trucks.webm" type="video/webm" />
 							</video>
 							
-							<a href="about">
+							<a href="aboutIn">
                                 <div className="home-about-button">
                                     <div className="my-btn my-btn-primary">
                                         <div className="my-btn-bg-top"></div>
@@ -604,7 +604,7 @@ function IndexCli(){
                             
                         </div>
                         <div className="footer-1-button">
-                            <a href="about"><div className="my-btn my-btn-primary">
+                            <a href="aboutIn"><div className="my-btn my-btn-primary">
                                 <div className="my-btn-bg-top"></div>
                                 <div className="my-btn-bg-bottom"></div>
                                 <div className="my-btn-text">
@@ -619,10 +619,10 @@ function IndexCli(){
                         <div className="footer-2-links">
                             <div className="footer-2-links-1">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
-                                    <li><a href="servicios">Servicios</a></li>
-                                    <li><a href="about">Sobre Nosotros</a></li>
-                                    <li><a href="contactos">Contacto</a></li>
+                                    <li><a href="indexIn">Home</a></li>
+                                    <li><a href="serviciosIn">Servicios</a></li>
+                                    <li><a href="aboutIn">Sobre Nosotros</a></li>
+                                    <li><a href="contactosIn">Contacto</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
 import {variables} from '../variables';
+import axios from 'axios';
 
 export class ListaEncargos extends Component{
     constructor(props){
@@ -18,13 +19,14 @@ export class ListaEncargos extends Component{
             encClicedula:"",
             encUnidad:"",
             encStatus:"",
+            conductores:[],
+            camiones:[],
+            conCedula:"",
+            clientes:[]
         }
     }
 
-    state={
-        conductores:[],
-        camiones:[]
-    }
+    
 
 
     //Buscar los encargos existentes
@@ -36,13 +38,48 @@ export class ListaEncargos extends Component{
          });
     }
 
-
-    //renderizar lista
-    componentDidMount(){
-        this.refreshList();
+    datosCon(){
+        axios.get(variables.API_URL +'Conductor')
+        .then((response)=>{
+            this.setState({conductores: response.data})
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
     }
 
-    
+    datosCam(){
+        axios.get(variables.API_URL +'Camion')
+        .then((response)=>{
+            this.setState({camiones: response.data})
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
+    }
+
+    datosCli(){
+        axios.get(variables.API_URL +'Cliente')
+        .then((response)=>{
+            this.setState({clientes: response.data})
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
+    }
+
+    //renderizar datos
+    componentDidMount(){
+        Promise.all([this.refreshList(), (this.datosCon(), (this.datosCam(), this.datosCli()))])
+        .then(([res1, res2, res3, res4]) =>{
+            return Promise.all([res1.json(), res2.json(), res3(), res4()])
+        })
+        .then(([res1, res2, res3, res4]) =>{
+            this.setState({encargos:res1, conductores:res2, camiones:res3, clientes:res4})
+        })
+        //this.refreshList();
+    }
+
     
     //formulario para editar datos
     editClick(enc){
@@ -330,12 +367,12 @@ export class ListaEncargos extends Component{
                             
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">ID</span>
-                                <input type="text" className="form-control" name="encId" value={encId} onChange={this.ChangeHandler}/>
+                                <input disabled className="form-control" name="encId" value={encId} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Tipo de encargo</span>
-                                <select className="form-control" name="encTipoenc" value={encTipoenc} onChange={this.ChangeHandler}>
+                                <select disabled className="form-control" name="encTipoenc" value={encTipoenc} onChange={this.ChangeHandler}>
                                     <option>-Seleccione una opción-</option>
                                     <option>Mudanza</option>
                                     <option>Transporte de alimentos</option>
@@ -345,12 +382,12 @@ export class ListaEncargos extends Component{
                                          
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Descripcion</span>
-                                <input type="text" className="form-control" name="encDesc" value={encDesc} onChange={this.ChangeHandler}/>
+                                <input disabled className="form-control" name="encDesc" value={encDesc} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Provincia</span>
-                                <select className="form-control" name="encProvinciaid" value={encProvinciaid} onChange={this.ChangeHandler}>
+                                <select disabled className="form-control" name="encProvinciaid" value={encProvinciaid} onChange={this.ChangeHandler}>
                                     <option>-Seleccione una opción-</option>
                                     <option>Distrito Nacional</option>
                                     <option>Santo Domingo Norte</option>
@@ -367,29 +404,40 @@ export class ListaEncargos extends Component{
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Sector</span>
-                                <input type="text" className="form-control" name="encSector" value={encSector} onChange={this.ChangeHandler}/>
+                                <input disabled className="form-control" name="encSector" value={encSector} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Lugar de descarga</span>
-                                <input type="text" className="form-control" name="encLugardescarga" value={encLugardescarga} onChange={this.ChangeHandler}/>
+                                <input disabled className="form-control" name="encLugardescarga" value={encLugardescarga} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Cedula de Conductor</span>
-                                <input type="text" className="form-control" name="encConductorcedula" value={encConductorcedula} onChange={this.ChangeHandler}/>
+                                <select type="text" className="form-control" name="encConductorcedula" value={encConductorcedula} onChange={this.ChangeHandler}>
+                                    <option>-Seleccione una Opción-</option>
+                                    {this.state.conductores.map(con => (
+                                       <option key={con.id}>{con.conCedula}</option> 
+                                       )
+                                    )}
+                                </select>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Cedula de Cliente</span>
-                                <input type="text" className="form-control" name="encClicedula" value={encClicedula} onChange={this.ChangeHandler}/>
+                                <input disabled className="form-control" name="encClicedula" value={encClicedula} onChange={this.ChangeHandler}>
+                                </input>
                             </div>
                             
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Camión</span>
-                                <select className="form-control" name="encUnidad" value={encUnidad} onChange={this.ChangeHandler}>
-                                    {encargos.map(enc =>
-                                        <option key={enc.desc}></option>)}
+                                <select className="form-control" name="encUnidad" value={encUnidad} onChange={this.ChangeHandler}>          
+                                <option>-Seleccione una Opción-</option>
+                                {this.state.camiones.map(cam => (
+                                    
+                                       <option key={cam.id}>{cam.camUnidad}</option> 
+                                       )
+                                    )}
                                 </select>
                             </div>
 

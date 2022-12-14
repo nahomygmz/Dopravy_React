@@ -40,6 +40,7 @@ export class AddVehiculo extends Component{
                 alert('Este vehiculo esta registrado.');
             }else{
                 alert('Vehiculo registrado.');
+                window.location.reload()
             }
         })
     }

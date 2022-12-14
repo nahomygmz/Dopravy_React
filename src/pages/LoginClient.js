@@ -2,55 +2,54 @@ import Menu from "./Menu";
 import React, { Component } from 'react';
 import {variables} from '../variables';
 import axios from 'axios';
-
-import { useNavigate } from "react-router-dom";
+import { Cuenta } from "./Cuenta";
 
 export class LoginClient extends Component{
 
 
-    
-    state ={
-        form:{
-            "cliCedula":"",
-            "":" ",
-            "cliPw":""
-        },
-        error:false,
-        errorMsg:""
+    constructor(props){
+        super(props);
+
+        this.state={
+            cliNombre:"",
+            cliCedula:"",
+            cliPw:"",
+        }
     }
 
-    mChange = async e =>{
-        await this.setState({
-            form:{
-                ...this.state.form,
-                [e.target.name]: e.target.value
-            }
-        })
-        console.log(this.state.form);
+    ChangeHandler = (e) => {
+        this.setState({[e.target.name]: e.target.value})
     }
 
-    //POST
-    btnChange = () =>{
-        axios.get(variables.API_URL +'Cliente/', this.state.form)
+    //GET
+    submitHandler = e =>{
+        e.preventDefault()
+        console.log(this.state.cliCedula)
+        console.log(this.state.cliPw)
+        
+        localStorage.setItem('cedula', this.state.cliCedula)
+        localStorage.setItem('pass', this.state.cliPw)
+
+        axios.get(variables.API_URL +'Cliente/'+this.state.cliCedula+" "+this.state.cliPw)
         .then(res=>res.json())
         .catch(function (error){
             if(error.response){
-                alert('Este usuario no existe.');
+                alert('Usuario o contraseña incorrectos. Intentelo de nuevo.');
             }else{
-                alert('Bienvenido :).');
+                alert('Bienvenido/a');
+                
                 window.location.assign('/cuenta');
-
             }
         })
-        
     }
-    
-    
+
+
 
     render(){
         const{
             cliCedula,
-            cliPw            
+            cliPw,
+            cliente            
         }=this.state 
 
         return(
@@ -99,13 +98,14 @@ export class LoginClient extends Component{
                                     <div className="row g-0">
                                         <div className="col-11 col-md-10 col-lg-9 mx-auto">
                                             <h3 className="text-12 mb-4">Log In</h3>
-                                            <form >
+                                            <form onSubmit={this.submitHandler}>
 
                                                 <label className="form-label fw-500" for="emailAddress">Cédula</label>
                                                 <div className="mb-3 icon-group icon-group-end">
                                                 <input type="text" maxlength="11" 
-                                                
-                                                onChange={this.mChange}
+                                                name="cliCedula"
+                                                value={cliCedula}
+                                                onChange={this.ChangeHandler}
                                                 className="form-control bg-light border-light" 
                                                 id="emailAddress" required="" 
                                                 placeholder="Ingrese su cédula de identidad"/>
@@ -114,8 +114,9 @@ export class LoginClient extends Component{
                                                 <label className="form-label fw-500" for="loginPassword">Contraseña</label>
                                                 <div className="mb-3 icon-group icon-group-end">
                                                 <input type="password" 
-                                                
-                                                onChange={this.mChange}
+                                                name="cliPw"
+                                                value={cliPw}
+                                                onChange={this.ChangeHandler}
                                                 className="form-control form-control-lg bg-light border-light" 
                                                 id="loginPassword" required="" placeholder="Ingrese su contraseña"/>
                                                 </div>
@@ -130,11 +131,14 @@ export class LoginClient extends Component{
                                                 <div className="col text-end"><a href="forgot-passwordClient">¿Olvidó su contraseña?</a></div>
                                                 
                                                 </div>
+                                                
                                                 <div className="d-grid my-4">
-                                                <button className="btn btn-dark btn-lg" onClick={this.btnChange} type="submit">Iniciar Sesión</button>
+                                                <button type="submit" 
+                                                className="btn btn-dark btn-lg"
+                                                onClick={this.submitHandler}>Iniciar Sesión</button>
                                                 </div>
-                                                <p className="text-2 text-muted text-center">¿No tiene una cuenta? <a href="registerClient">Registrate</a> ahora</p>
                                             </form>
+                                            <p className="text-2 text-muted text-center">¿No tiene una cuenta? <a href="registerClient">Registrate</a> ahora</p>
                                         </div>
                                     </div>
                                 </div>

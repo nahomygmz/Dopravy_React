@@ -20,7 +20,7 @@ import {AddEmpleados} from './admin_pages/AddEmpleado';
 import {ListaEmpleados} from './admin_pages/Empleados';
 import {AddVehiculo} from './admin_pages/NewVehiculo';
 import {ListaVehiculo} from './admin_pages/Vehiculos';
-import LoginAdmin from './admin_pages/LoginAdmin';
+import {LoginAdmin} from './admin_pages/LoginAdmin';
 
 function App() {
   return (

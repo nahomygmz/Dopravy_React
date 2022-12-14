@@ -56,6 +56,7 @@ export class AddEmpleados extends Component{
                 alert('Este conductor ya existe.');
             }else{
                 alert('Conductor registrado.');
+                window.location.reload()
             }
         })
     }

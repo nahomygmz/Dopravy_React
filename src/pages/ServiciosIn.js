@@ -176,7 +176,7 @@ function Servicios(){
             </div>
 	    </div>
 
-            <footer className="def-section footer">
+        <footer className="def-section footer">
                 <div className="container">
                     <div className="row">
                         
