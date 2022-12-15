@@ -13,7 +13,7 @@ import ServiciosIn from './pages/ServiciosIn';
 import AboutIn from './pages/AboutIn';
 import ContactosIn from './pages/ContactosIn';
 
-import IndexAdmin from './admin_pages/IndexAdmin';
+import {IndexAdmin} from './admin_pages/IndexAdmin';
 import {ListaClientes} from './admin_pages/listaClientes';
 import {ListaEncargos} from './admin_pages/Encargos';
 import {AddEmpleados} from './admin_pages/AddEmpleado';

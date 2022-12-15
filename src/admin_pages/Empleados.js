@@ -89,6 +89,11 @@ export class ListaEmpleados extends Component{
     this.setState({[e.target.name]: e.target.value})
     }
 
+    logout(){
+        localStorage.removeItem('nickname')
+        window.location.assign('/loginAdmin');
+        
+    }
 
 
     render(){
@@ -222,7 +227,7 @@ export class ListaEmpleados extends Component{
                                     </div>
     
                                     <div className="navbar-nav flex-row align-items-center ms-auto">
-                                        <Link to='/loginAdmin'>Cerrar Sesión</Link>
+                                        <Link to='/loginAdmin' onClick={this.logout}>Cerrar Sesión</Link>
                                     </div>
                                 </div>
                             </nav>

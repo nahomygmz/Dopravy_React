@@ -82,8 +82,11 @@ export class ListaClientes extends Component{
     this.setState({[e.target.name]: e.target.value})
     }
 
-
-
+    logout(){
+        localStorage.removeItem('nickname')
+        window.location.assign('/loginAdmin');
+        
+    }
 
 
     render(){
@@ -222,7 +225,7 @@ export class ListaClientes extends Component{
                                 <div className="navbar-nav flex-row align-items-center ms-auto">
                                     
                                     <li className="nav-item navbar-dropdown dropdown-user dropdown">
-                                        <Link to='/loginAdmin'>Cerrar Sesión</Link>
+                                        <Link to='/loginAdmin' onClick={this.logout}>Cerrar Sesión</Link>
                                     </li>
                                 </div>
                             </div>
@@ -315,22 +318,22 @@ export class ListaClientes extends Component{
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Nombre</span>
-                                <input type="text" className="form-control" name="cliNombre" value={cliNombre} onChange={this.ChangeHandler}/>
+                                <input type="text" disabled className="form-control" name="cliNombre" value={cliNombre} onChange={this.ChangeHandler}/>
                             </div>
                                                     
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Apellido</span>
-                                <input type="text" className="form-control" name="cliApellido" value={cliApellido} onChange={this.ChangeHandler}/>
+                                <input type="text" disabled className="form-control" name="cliApellido" value={cliApellido} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Fecha de Nacimiento</span>
-                                <input type="text" className="form-control" name="cliFechnac" value={cliFechnac} onChange={this.ChangeHandler}/>
+                                <input type="text" disabled className="form-control" name="cliFechnac" value={cliFechnac} onChange={this.ChangeHandler}/>
                             </div>
 
                             <div className="input-group mb-3">
                                 <span className="btn btn-outline-secondary">Sexo</span>
-                                <select className="form-control" name="cliSexo" value={cliSexo} onChange={this.ChangeHandler}>
+                                <select disabled className="form-control" name="cliSexo" value={cliSexo} onChange={this.ChangeHandler}>
                                     <option>Femenino</option>
                                     <option>Masculino</option>
                                 </select>

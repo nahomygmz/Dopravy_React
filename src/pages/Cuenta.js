@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {variables} from '../variables';
 import axios from 'axios';
 import { LoginClient } from './LoginClient';
+import Swal from 'sweetalert2'
 
  
 export class Cuenta extends Component{
@@ -85,6 +86,12 @@ export class Cuenta extends Component{
 
         
     }
+
+    logout(){
+        localStorage.removeItem('cedula')
+        window.location.assign('/index');
+        
+    }
     
 
     //renderizar listas
@@ -106,6 +113,10 @@ export class Cuenta extends Component{
         this.setState({[e.target.name]: e.target.value})
     }
 
+    ChangeHandler2 = (e) => {
+        this.setState({[e.target.cedula]: e.clienteActual.cliCedula})
+    }
+
 
     //POST
     submitHandler = e =>{
@@ -120,39 +131,10 @@ export class Cuenta extends Component{
             }else{
                 alert('Encargo realizado.');
                 window.location.reload();
+
             }
         })
     }
-
-    /* submitHandler(){
-        fetch(variables.API_URL+'Encargo', {
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-            },
-            body: JSON.stringify({
-                encId:this.state.encId,
-                encTipoenc:this.state.encTipoenc,
-                encDesc:this.state.encDesc,
-                encProvinciaid:this.state.encProvinciaid,
-                encSector:this.state.encSector,
-                encLugardescarga:this.state.encLugardescarga,
-                encClicedula:this.state.encClicedula,
-                
-            })
-        })
-        .then(response=>response.json())
-        .catch(function (error){
-            if(error.response){
-                alert('Usuario o contraseña incorrectos. Intentelo de nuevo.');
-            }else{
-                alert('Bienvenido/a');
-                
-                window.location.assign('/cuenta');
-            }
-        })
-    } */
 
 
     //formulario para editar datos
@@ -208,8 +190,10 @@ export class Cuenta extends Component{
         })
     }
 
+   
     //Delete
     deleteClick(id){
+        
         if(window.confirm('Seguro que desea cancelar este encargo?')){ 
             fetch(variables.API_URL+'Encargo/'+id.encId, {
                 method:'DELETE',
@@ -230,7 +214,6 @@ export class Cuenta extends Component{
             })
         }
     }
-
 
 
     render(){
@@ -315,7 +298,7 @@ export class Cuenta extends Component{
                                     </li> 
                                     <li className="main-menu-separator"></li>
                                     <li>
-                                        <a  href="index">Cerrar Sesión</a>
+                                        <a  href="index" onClick={this.logout}>Cerrar Sesión</a>
                                     </li> 
                                 </ul>
                             </div>
@@ -369,7 +352,8 @@ export class Cuenta extends Component{
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {encargos.map(enc =>
+                                                        {
+                                                        encargos.map(enc =>
                                                             enc.encClicedula == clienteActual.cliCedula ?
                                                             <tr key={enc.id}>
                                                                 <td>{enc.encId}</td>
@@ -558,12 +542,14 @@ export class Cuenta extends Component{
                                                             <div className="form-group">
                                                                 <label for="recipient-name" className="col-form-label">Cedula</label>
                                                                 <select className="form-control" 
-                                                                value={clienteActual.cliCedula} 
-                                                                onChange={this.ChangeHandler}>
-                                                                    <option>-Seleccione una Opción-</option>
-                                                                    
-                                                                    <option>{clienteActual.cliCedula}</option>
-                                                                </select>
+                                                                maxLength="11"
+                                                                name="encClicedula"
+                                                                onChange={this.ChangeHandler}
+                                                               >
+                                                                <option>  </option>
+                                                                <option value={clienteActual.cliCedula}>{clienteActual.cliCedula}</option>
+                                                                
+                                                               </select>
                                                             </div>                                                   
                                                         
                                                             <div className="form-group">
@@ -633,11 +619,10 @@ export class Cuenta extends Component{
 
                                                             <div className="modal-footer">  
                                                                 <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                                {encId==0?
+                                                                
                                                                 <button type="submit" 
                                                                 className="btn btn-primary"
                                                                 onClick={this.submitHandler}>Realizar encargo</button>
-                                                                :null}
                                                             </div>
                                                             
                                                         </div>
@@ -662,26 +647,87 @@ export class Cuenta extends Component{
                                     <div className="col-md-8">
                                         <div className="card mb-3">
                                             <div className="card-body">    
-                                                <table className="table table-striped">
-                                                    <thead>
-                                                        <th>Nombre</th>
-                                                        <th>Apellido</th>
-                                                        <th>Cedula</th>
-                                                        <th>Fecha de Nacimiento</th>
-                                                        <th>Sexo</th>
-                                                        <th>password</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        { <tr>
-                                                            <td>{clienteActual.cliNombre}</td>
-                                                            <td>{clienteActual.cliApellido}</td>
-                                                            <td>{clienteActual.cliCedula}</td>
-                                                            <td>{clienteActual.cliFechnac}</td>
-                                                            <td>{clienteActual.cliSexo}</td>
-                                                            <td>{clienteActual.cliPw}</td>
-                                                        </tr>}
-                                                    </tbody>
-                                                </table>
+
+                                            <div className="form-row">
+                                                
+
+                                                <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Nombre</label>
+                                                    <input type="text"
+                                                    disabled
+                                                    name="cliNombre" 
+                                                    value={cliNombre} 
+                                                    onChange={this.ChangeHandler}
+                                                    className="form-control" placeholder={clienteActual.cliNombre}/>
+                                                </div>
+
+                                                <br/>
+
+                                                <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Apellidos</label>
+                                                    <input type="text" className="form-control" 
+                                                    disabled
+                                                    name="cliApellido" 
+                                                    value={cliApellido} 
+                                                    onChange={this.ChangeHandler}
+                                                    placeholder={clienteActual.cliApellido}/>
+                                                </div>
+                                                
+                                                <br/>
+
+                                                <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Cédula de identidad</label>
+                                                    <input type="text" disabled className="form-control" 
+                                                    name="cliFechnac" 
+                                                    value={cliFechnac} 
+                                                    onChange={this.ChangeHandler}
+                                                    placeholder={clienteActual.cliCedula}/>
+                                                </div>
+                                                
+                                                <br/>
+
+                                                <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Fecha de Nacimiento</label>
+                                                    <input type="text" disabled className="form-control" 
+                                                    name="cliFechnac" 
+                                                    value={cliFechnac} 
+                                                    placeholder={clienteActual.cliFechnac}>
+                                                    </input>
+                                                </div>
+                                                
+                                                <br/>
+
+                                                <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Sexo</label>
+                                                    <input type="text" id="disabledTextInput" className="form-control" 
+                                                    disabled
+                                                    name="cliSexo" 
+                                                    value={cliSexo} 
+                                                    onChange={this.ChangeHandler}
+                                                    placeholder={clienteActual.cliSexo}/>
+                                                </div>
+                                                
+                                                <br/>
+                                               {/*  <div className="mb-3">
+                                                    <label for="disabledTextInput" className="form-label">Contraseña</label>
+                                                    <input type="password" className="form-control" 
+                                                    name="cliPw" 
+                                                    value={cliPw} 
+                                                    onChange={this.ChangeHandler}
+                                                    placeholder={clienteActual.cliPw}/>
+                                                </div> */}
+                                               {/*  <div className="modal-footer">  
+                                                    {cliCedula!==0?
+                                                    <button type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={()=>this.updateCli(cliCedula)}>Guardar cambios</button>
+                                                    :null}
+                                                </div> */}
+                                                {/* <div>
+                                                    <button type="submit" className="btn btn-primary">Actualizar contraseña</button>
+                                                </div> */}
+                                                <br/>
+                                            </div>
     
                                             </div>
                                         </div>

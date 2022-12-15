@@ -23,6 +23,9 @@ export class LoginAdmin extends Component{
         e.preventDefault()
         console.log(this.state.adminNickname)
         console.log(this.state.cliPw)
+        localStorage.setItem('nickname', this.state.adminNickname)
+        localStorage.setItem('pass', this.state.adminPw)
+
         axios.get(variables.API_URL +'Admin/'+this.state.adminNickname+" "+this.state.adminPw)
         .then(res=>res.json())
         .catch(function (error){
@@ -39,10 +42,12 @@ export class LoginAdmin extends Component{
 
 
     render(){
+        
         const{
             adminNickname,
             adminPw,
         }=this.state 
+
         return(
             <div>
                

@@ -61,6 +61,12 @@ export class AddEmpleados extends Component{
         })
     }
 
+    logout(){
+        localStorage.removeItem('nickname')
+        window.location.assign('/loginAdmin');
+        
+    }
+
     render(){
 
         const{ 
@@ -192,7 +198,7 @@ export class AddEmpleados extends Component{
                                     </div>
 
                                     <div className="navbar-nav flex-row align-items-center ms-auto">
-                                        <Link to='/loginAdmin'>Cerrar Sesión</Link>
+                                        <Link to='/loginAdmin' onClick={this.logout}>Cerrar Sesión</Link>
                                     </div>
                                 </div>
                             </nav>

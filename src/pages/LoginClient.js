@@ -14,6 +14,7 @@ export class LoginClient extends Component{
             cliNombre:"",
             cliCedula:"",
             cliPw:"",
+            cliStatus:""
         }
     }
 
@@ -35,7 +36,8 @@ export class LoginClient extends Component{
         .catch(function (error){
             if(error.response){
                 alert('Usuario o contraseña incorrectos. Intentelo de nuevo.');
-            }else{
+            }
+            else{
                 alert('Bienvenido/a');
                 
                 window.location.assign('/cuenta');
