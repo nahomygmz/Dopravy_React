@@ -1,6 +1,6 @@
-# Dopravy - Logística y
+# Dopravy - Logística y Transporte
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este es un proyecto de transporte de camiones que permite a los usuarios reservar encargos para el transporte de mercancías. El sistema está diseñado para ser utilizado por pequeñas empresas de transporte de camiones y sus clientes.
 
 ## Available Scripts
 
