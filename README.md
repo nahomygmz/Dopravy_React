@@ -28,6 +28,6 @@ Instalar las dependencias: `npm install`
 
 Configurar las variables de entorno:
 
-### `REACT_APP_API_BASE_URL: URL de la API` 
+`REACT_APP_API_BASE_URL: URL de la API` 
 
 Iniciar la aplicación: `npm start`
