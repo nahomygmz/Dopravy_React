@@ -22,7 +22,7 @@ Este es un proyecto de transporte de camiones que permite a los usuarios reserva
 • Base de datos: SQL Server
 
 ## Instalación y configuración
-Clonar el repositorio: git clone https://github.com/nahomygmz/Dopravy_React.git
+Clonar el repositorio: `git clone` https://github.com/nahomygmz/Dopravy_React.git
 
 Instalar las dependencias: `npm install`
 
